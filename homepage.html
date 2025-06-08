@@ -1,0 +1,231 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scroll Memories</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0f0f1a, #1a1a2e);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 40px;
+      font-size: 3em;
+      color: #ffccff;
+    }
+
+    .section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 80px auto;
+      max-width: 1000px;
+      opacity: 0;
+      transform: translateX(100px);
+      transition: all 1s ease;
+    }
+
+    .section.left {
+      flex-direction: row-reverse;
+      transform: translateX(-100px);
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .section img {
+      width: 45%;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      transition: transform 0.5s ease, filter 0.3s ease;
+    }
+
+    .section img:hover {
+      transform: scale(1.08);
+      filter: brightness(1.2);
+    }
+
+    .text {
+      width: 45%;
+      font-size: 1.2em;
+      padding: 10px;
+    }
+
+    .love-question {
+      text-align: center;
+      margin-top: 100px;
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .options {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      background-color: #ff99cc;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      margin: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #ff66aa;
+    }
+
+    #noBtn {
+      position: relative;
+    }
+
+    audio {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        flex-direction: column !important;
+        text-align: center;
+      }
+      .section img, .text {
+        width: 90%;
+      }
+      .text {
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🎵 Background music -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="1.mp3" type="audio/mpeg" >
+    Your browser does not support the audio element.
+  </audio>
+
+
+  <!-- 💖 Love music -->
+  <audio id="loveMusic">
+    <source src="1.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <h1>Welcome, Rishika 💙</h1>
+
+  <!-- Photo Sections -->
+  <div class="section"><img src="1jpg.jpg"><div class="text">You & Me 🥰</div></div>
+  <div class="section left"><img src="9.jpg"><div class="text">Magic Moment</div></div>
+  <div class="section"><img src="3.jpg"><div class="text">Sweet laugh💗</div></div>
+  <div class="section left"><img src="4.jpg"><div class="text">Eyes Full of Magic💕</div></div>
+  <div class="section"><img src="5.jpg"><div class="text">Cute Smile💓</div></div>
+  <div class="section left"><img src="6.jpg"><div class="text">Unforgettable💕</div></div>
+  <div class="section"><img src="7.jpg"><div class="text">The Moment I know💕</div></div>
+  <div class="section left"><img src="8.jpg"><div class="text">That Cute Look</div></div>
+  <div class="section"><img src="2.jpg"><div class="text">Last But Best❣</div></div>
+  <div class="section left"><img src="10.jpg"><div class="text"></div>Hidden feelings💌</div>
+   <!-- Love Question Section -->
+  <div class="love-question">Do you love me? 🥺</div>
+  <div class="options">
+    <button class="btn" onclick="sayYes()">Yes ❤</button>
+    <button class="btn" id="noBtn" onmouseover="moveNo()">No 💔</button>
+  </div>
+
+  <script>
+    // Scroll animation
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(section => observer.observe(section));
+
+    // Music control
+    const bgMusic = document.getElementById("bgMusic");
+    const loveMusic = document.getElementById("loveMusic");
+
+    function sayYes() {
+      bgMusic.pause();        // Stop background music
+      loveMusic.play();       // Play love music
+      alert("Awww 🥰 I love you too!");
+    }
+
+    function moveNo() {
+      const noBtn = document.getElementById("noBtn");
+      const x = Math.random() * window.innerWidth * 0.6;
+      const y = Math.random() * window.innerHeight * 0.6;
+      noBtn.style.position = "absolute";
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+  </script>
+<!-- ❄ Snow & ❤ Heart Falling Animation -->
+<style>
+  .snow, .heart {
+    position: fixed;
+    top: -10px;
+    z-index: 9999;
+    animation: fall linear infinite;
+    pointer-events: none;
+  }
+
+  .snow {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation-duration: 10s;
+  }
+
+  .heart {
+    font-size: 20px;
+    color: red;
+    animation-duration: 6s;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(360deg);
+    }
+  }
+</style>
+
+<script>
+  function createParticle(className, content = "") {
+    const particle = document.createElement("div");
+    particle.className = className;
+    if (content) particle.innerHTML = content;
+
+    particle.style.left = Math.random() * 100 + "vw";
+    particle.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    particle.style.opacity = Math.random();
+
+    document.body.appendChild(particle);
+
+    setTimeout(() => {
+      particle.remove();
+    }, 10000);
+  }
+
+  setInterval(() => createParticle("snow"), 200);     // Snow every 200ms
+  setInterval(() => createParticle("heart", "❤"), 800); // Heart every 800ms
+</script>
+
+</body>
+</html>
